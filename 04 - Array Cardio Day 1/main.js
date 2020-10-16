@@ -18,66 +18,67 @@ const inventors = [
   { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
 ];
 
-const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
-
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's
-const arr = inventors.filter( inv => inv.year >= 1500 && inv.year < 1600 )
-console.table(arr);
+
+const born = inventors.filter(person => person.year >= 1500 && person.year < 1600 ? true : false );
+//console.log(born);
 
 // Array.prototype.map()
 // 2. Give us an array of the inventors first and last names
 
-const arr2 = inventors.map(el => `${el.first} ${el.last}`);
-console.table(arr2);
+const fullNames = inventors.map(inv => `${inv.first} ${inv.last}`);
+//console.log(fullNames);
 
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
 
-const arr3 = inventors.sort((a,b) => a.year>b.year ? 1 : -1);
-
-console.table(arr3);
+const sortByBirthDate = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+//console.log(sortByBirthDate);
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live all together?
 
-const age = inventors.reduce( (total, inv) => {
-  return total + (inv.passed - inv.year);
-},0)
+const yearsLived = inventors.reduce(((sum, inv) => sum + (inv.passed-inv.year)),0);
+console.log(yearsLived);
+
+
 
 // 5. Sort the inventors by years lived
 
-  const arr5 = inventors.sort((a,b) => {
-    const a_age = a.passed - a.year;
-    const b_age = b.passed - b.year;
-    return a_age > b_age ? 1 : -1;
-  })
+const sortByYearsLived = inventors.sort((a, b) => (a.passed - a.year)>(b.passed - b.lived) ? 1 : -1);
+//console.log(sortByYearsLived);
+
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-/*
-const category = document.querySelector('.mw-category');
-const links = Array.from(category.querySelectorAll('a'));
 
-const de = links
-            .map(el => el.textContent)
-            .filter(sN => sN.includes('de'));
-            */
+//done in chrome console
+
 // 7. sort Exercise
 // Sort the people alphabetically by last name
 
-const ari = people.sort((first,next) => {
-  const [aLast,aFirst] = first.split(',');
-  const [bLast,bFirst] = next.split(',');
-  return aLast > bLast ? 1 : -1;
-});
+const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+
+
+const splited = people.sort((a,b) => {
+
+  const [aF,aS] = a.split(', ');
+  const [bF,bS] = b.split(', ');
+
+  if(aF > bF) return 1;
+  else return -1;
+})
+//console.log(splited);
 
 // 8. Reduce Exercise
 // Sum up the instances of each of these
 const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
-const lastTask = data.reduce((result,ele) => {
-  if(!result[ele]) result[ele] = 0;
-  result[ele]++;
-  return result;
-},{});
+const redu = data.reduce((uniq, el) => {
+  if(!uniq[el]) uniq[el] = 0;
+  uniq[el]++;
+  return uniq;
+},[])
+
+console.log(redu);
